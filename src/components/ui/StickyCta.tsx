@@ -1,24 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { ArrowRight, Calendar } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
 
-interface StickyCtaProps {
-  onOpenDemo: (topic?: string) => void;
-}
-
-export function StickyCta({ onOpenDemo }: StickyCtaProps) {
+export function StickyCta() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.scrollY > window.innerHeight * 0.65);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -26,16 +19,14 @@ export function StickyCta({ onOpenDemo }: StickyCtaProps) {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 animate-in fade-in slide-in-from-bottom-5 duration-200">
-      <button
-        type="button"
-        onClick={() => onOpenDemo()}
-        className="group inline-flex items-center gap-2.5 px-5 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-xl shadow-blue-900/25 active:scale-95 transition-all cursor-pointer border border-blue-500/40"
+    <div className="fixed bottom-5 right-5 z-40">
+      <a
+        href="#contact"
+        className="inline-flex h-12 items-center gap-2 rounded-full bg-[var(--color-primary)] px-5 text-sm font-bold text-white shadow-[0_18px_36px_rgba(255,92,122,0.24)] transition hover:-translate-y-0.5 hover:bg-[var(--color-primary-hover)]"
       >
-        <Calendar className="w-4 h-4 text-blue-100" />
-        <span>Book a Demo</span>
-        <ArrowRight className="w-4 h-4 text-blue-200 group-hover:translate-x-0.5 transition-transform" />
-      </button>
+        Book a Demo
+        <ArrowRight className="h-4 w-4" />
+      </a>
     </div>
   );
 }

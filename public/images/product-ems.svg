@@ -1,0 +1,30 @@
+<svg width="1280" height="900" viewBox="0 0 1280 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="900" rx="32" fill="#FCFAF8"/>
+  <rect x="64" y="72" width="1152" height="756" rx="28" fill="white" stroke="#E5DEEE"/>
+  <rect x="110" y="130" width="248" height="622" rx="22" fill="#F6F2F8"/>
+  <rect x="402" y="130" width="282" height="156" rx="24" fill="#201E2E"/>
+  <rect x="720" y="130" width="432" height="156" rx="24" fill="#FFEEF2"/>
+  <rect x="402" y="322" width="750" height="190" rx="24" fill="#F9F5F7"/>
+  <rect x="402" y="548" width="360" height="164" rx="24" fill="#FFF3F6"/>
+  <rect x="792" y="548" width="360" height="164" rx="24" fill="#F2EDF7"/>
+  <rect x="144" y="174" width="176" height="14" rx="7" fill="#5A5483" fill-opacity="0.18"/>
+  <rect x="144" y="212" width="112" height="12" rx="6" fill="#5A5483" fill-opacity="0.1"/>
+  <rect x="144" y="286" width="180" height="88" rx="18" fill="#FF5C7A" fill-opacity="0.12"/>
+  <rect x="144" y="394" width="180" height="88" rx="18" fill="white"/>
+  <rect x="144" y="502" width="180" height="88" rx="18" fill="white"/>
+  <rect x="144" y="610" width="180" height="88" rx="18" fill="white"/>
+  <rect x="436" y="166" width="110" height="12" rx="6" fill="white" fill-opacity="0.58"/>
+  <rect x="436" y="202" width="182" height="18" rx="9" fill="white"/>
+  <rect x="754" y="166" width="130" height="12" rx="6" fill="#5A5483" fill-opacity="0.18"/>
+  <rect x="754" y="204" width="236" height="16" rx="8" fill="#5A5483"/>
+  <rect x="436" y="360" width="194" height="14" rx="7" fill="#5A5483"/>
+  <rect x="436" y="402" width="682" height="12" rx="6" fill="#5A5483" fill-opacity="0.12"/>
+  <rect x="436" y="432" width="642" height="12" rx="6" fill="#5A5483" fill-opacity="0.12"/>
+  <rect x="436" y="462" width="512" height="12" rx="6" fill="#5A5483" fill-opacity="0.12"/>
+  <circle cx="1076" cy="388" r="34" fill="#FF5C7A"/>
+  <path d="M1062 388L1071 397L1091 377" stroke="white" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="438" y="580" width="120" height="14" rx="7" fill="#FF5C7A"/>
+  <rect x="438" y="618" width="250" height="12" rx="6" fill="#5A5483" fill-opacity="0.12"/>
+  <rect x="828" y="580" width="122" height="14" rx="7" fill="#5A5483"/>
+  <rect x="828" y="618" width="250" height="12" rx="6" fill="#5A5483" fill-opacity="0.12"/>
+</svg>

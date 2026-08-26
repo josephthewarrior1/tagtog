@@ -1,71 +1,37 @@
-"use client";
-
-import React, { useState } from "react";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { Hero } from "@/components/sections/Hero";
-import { ProblemSection } from "@/components/sections/ProblemSection";
-import { OfferSection } from "@/components/sections/OfferSection";
-import { BenefitsSection } from "@/components/sections/BenefitsSection";
-import { HowItWorksSection } from "@/components/sections/HowItWorksSection";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { ProofSection } from "@/components/sections/ProofSection";
-import { ObjectionFaqSection } from "@/components/sections/ObjectionFaqSection";
-import { FormAndFinalCta } from "@/components/sections/FormAndFinalCta";
-import { DemoModal } from "@/components/ui/Modal";
+import { FaqSection } from "@/components/landing/FaqSection";
+import { FinalCtaSection } from "@/components/landing/FinalCtaSection";
+import { HeroSection } from "@/components/landing/HeroSection";
+import { LandingFooter } from "@/components/landing/LandingFooter";
+import { LandingNavbar } from "@/components/landing/LandingNavbar";
+import { ProblemSection } from "@/components/landing/ProblemSection";
+import { ProductSuiteSection } from "@/components/landing/ProductSuiteSection";
+import { ScopeOfWorkSection } from "@/components/landing/ScopeOfWorkSection";
+import { StartSmallSection } from "@/components/landing/StartSmallSection";
+import { TechnicalEvaluatorsSection } from "@/components/landing/TechnicalEvaluatorsSection";
+import { TestimonialCarouselSection } from "@/components/landing/TestimonialCarouselSection";
+import { TrustStripSection } from "@/components/landing/TrustStripSection";
+import { WhyTagtogSection } from "@/components/landing/WhyTagtogSection";
+import { StickyCta } from "@/components/ui/StickyCta";
 
 export default function Home() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [demoTopic, setDemoTopic] = useState("");
-
-  const handleOpenDemo = (topic?: string) => {
-    setDemoTopic(topic || "");
-    setModalOpen(true);
-  };
-
   return (
-    <div className="flex flex-col min-h-screen bg-white text-gray-900 font-sans selection:bg-blue-600 selection:text-white relative">
-      {/* 1. Sticky Navigation */}
-      <Navbar onOpenDemo={handleOpenDemo} />
-
-      <main className="flex-1">
-        {/* 2. Hero Section */}
-        <Hero onOpenDemo={handleOpenDemo} />
-
-        {/* 3. Problem Section ("You already know this feeling.") */}
+    <div className="min-h-screen bg-[var(--color-bg-light)] text-[var(--color-text-primary)] selection:bg-[var(--color-primary)] selection:text-white">
+      <LandingNavbar />
+      <main>
+        <HeroSection />
+        <TrustStripSection />
         <ProblemSection />
-
-        {/* 4. Offer Section (Connected Engines: EMS, PMS, CRM, IAM) */}
-        <OfferSection onOpenDemo={handleOpenDemo} />
-
-        {/* 5. Benefits Section ("What changes for your team" - 5 Pillars) */}
-        <BenefitsSection />
-
-        {/* 6. How It Works Section ("From planning to reporting, in one flow" - 5 Steps) */}
-        <HowItWorksSection />
-
-        {/* 7. Field Perspectives Testimonial Cards */}
-        <TestimonialsSection />
-
-        {/* 8. Proof Section (CLEAR Framework & Operational Touchpoints Gallery) */}
-        <ProofSection />
-
-        {/* 9. Objection Handling & FAQ Accordion */}
-        <ObjectionFaqSection />
-
-        {/* 10. In-Page Form & Final CTA */}
-        <FormAndFinalCta onOpenDemo={handleOpenDemo} />
+        <ProductSuiteSection />
+        <ScopeOfWorkSection />
+        <WhyTagtogSection />
+        <TestimonialCarouselSection />
+        <TechnicalEvaluatorsSection />
+        <StartSmallSection />
+        <FaqSection />
+        <FinalCtaSection />
       </main>
-
-      {/* 11. Clean Grounded Footer */}
-      <Footer />
-
-      {/* 15. Interactive Demo Modal */}
-      <DemoModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        defaultTopic={demoTopic}
-      />
+      <LandingFooter />
+      <StickyCta />
     </div>
   );
 }

@@ -25,7 +25,7 @@ export function Accordion({ items, defaultOpenId, className }: AccordionProps) {
   };
 
   return (
-    <div className={cn("divide-y divide-[#e2e2ea] border-y border-[#e2e2ea]", className)}>
+    <div className={cn("divide-y divide-[var(--color-secondary)]/12 border-y border-[var(--color-secondary)]/12", className)}>
       {items.map((item, index) => {
         const isOpen = openId === item.id;
         return (
@@ -37,20 +37,20 @@ export function Accordion({ items, defaultOpenId, className }: AccordionProps) {
                 aria-expanded={isOpen}
                 aria-controls={`accordion-panel-${item.id}`}
                 onClick={() => toggleItem(item.id)}
-                className="w-full flex items-center justify-between text-left py-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1d4ed8] focus-visible:ring-offset-2 rounded-md"
+                className="w-full flex items-center justify-between text-left py-2 group rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
               >
                 <div className="flex items-center gap-3 pr-4">
-                  <span className="font-mono text-xs text-[#7d7d94] font-normal shrink-0">
+                  <span className="shrink-0 font-mono text-xs font-normal text-[var(--color-text-muted)]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className="text-base sm:text-lg font-semibold text-[#090a0f] group-hover:text-[#1d4ed8] transition-colors">
+                  <span className="text-base font-semibold text-[var(--color-text-primary)] transition-colors group-hover:text-[var(--color-primary)] sm:text-lg">
                     {item.question}
                   </span>
                 </div>
                 <div
                   className={cn(
-                    "w-8 h-8 rounded-full border border-[#e2e2ea] bg-white flex items-center justify-center shrink-0 transition-transform duration-200 text-[#525266] group-hover:border-[#1d4ed8] group-hover:text-[#1d4ed8]",
-                    isOpen && "rotate-180 bg-[#eff6ff] text-[#1d4ed8] border-[#bfdbfe]"
+                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--color-secondary)]/18 bg-white text-[var(--color-secondary)] transition-transform duration-200 group-hover:border-[var(--color-primary)] group-hover:text-[var(--color-primary)]",
+                    isOpen && "rotate-180 border-[var(--color-primary)] bg-[var(--color-primary)] text-white"
                   )}
                 >
                   <ChevronDown className="w-4 h-4" />
@@ -63,7 +63,7 @@ export function Accordion({ items, defaultOpenId, className }: AccordionProps) {
               aria-labelledby={`accordion-btn-${item.id}`}
               hidden={!isOpen}
               className={cn(
-                "pt-2 pb-3 pl-8 text-sm sm:text-base text-[#525266] leading-relaxed transition-all",
+                "pt-2 pb-3 pl-8 text-sm leading-relaxed text-[var(--color-text-muted)] transition-all sm:text-base",
                 !isOpen && "hidden"
               )}
             >

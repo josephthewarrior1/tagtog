@@ -24,9 +24,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TAGTOG | The intelligence behind every great event",
+  title: "TAGTOG | Everything in Flow. Everyone in Sync.",
   description:
-    "The TAGTOG Connected Event Operations Ecosystem. More than a platform, TAGTOG connects EMS, PMS, CRM, and IAM to help event leaders scale programs, make smarter decisions, and prove impact.",
+    "TAGTOG connects EMS, PMS, CRM, and IAM into one connected event operations ecosystem for clearer information, traceability, access, and growth.",
 };
 
 export default function RootLayout({
