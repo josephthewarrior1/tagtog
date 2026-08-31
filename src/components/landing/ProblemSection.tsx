@@ -45,7 +45,7 @@ export function ProblemSection() {
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(32,30,46,0.14)_0%,rgba(32,30,46,0.76)_78%,rgba(32,30,46,0.92)_100%)]" />
               <div className="relative flex h-full flex-col justify-end p-6 sm:p-7">
-                <p className="font-mono text-xs font-bold text-white/52">0{index + 1}</p>
+                <p className="text-xs font-bold text-white/52">0{index + 1}</p>
                 <p className="mt-4 max-w-sm text-xl font-semibold leading-8 text-white sm:text-[1.65rem]">
                   {card.question}
                 </p>

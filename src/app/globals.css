@@ -22,8 +22,27 @@
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(-33.333%);
+    transform: translateX(-50%);
   }
+}
+
+.trust-strip {
+  mask-image: linear-gradient(to right, transparent 0, black 4%, black 96%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, black 4%, black 96%, transparent 100%);
+}
+
+.trust-strip__inner {
+  width: max-content;
+}
+
+.trust-strip__track {
+  min-width: max-content;
+  animation: marquee 34s linear infinite;
+  will-change: transform;
+}
+
+.trust-strip:hover .trust-strip__track {
+  animation-play-state: paused;
 }
 
 html {

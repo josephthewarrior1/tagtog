@@ -42,7 +42,7 @@ export function LandingFooter() {
                   <MdLocationOn className="h-4 w-4" />
                   {footerColumns.contact[1]}
                 </p>
-                <a href="#contact" className="inline-flex text-white transition hover:text-[var(--color-primary)]">
+                <a href="/request-demo" className="inline-flex text-white transition hover:text-[var(--color-primary)]">
                   {footerColumns.contact[2]}
                 </a>
               </div>

@@ -9,7 +9,6 @@ import { ScopeOfWorkSection } from "@/components/landing/ScopeOfWorkSection";
 import { StartSmallSection } from "@/components/landing/StartSmallSection";
 import { TechnicalEvaluatorsSection } from "@/components/landing/TechnicalEvaluatorsSection";
 import { TestimonialCarouselSection } from "@/components/landing/TestimonialCarouselSection";
-import { TrustStripSection } from "@/components/landing/TrustStripSection";
 import { WhyTagtogSection } from "@/components/landing/WhyTagtogSection";
 import { StickyCta } from "@/components/ui/StickyCta";
 
@@ -19,7 +18,6 @@ export default function Home() {
       <LandingNavbar />
       <main>
         <HeroSection />
-        <TrustStripSection />
         <ProblemSection />
         <ProductSuiteSection />
         <ScopeOfWorkSection />

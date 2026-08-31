@@ -61,7 +61,7 @@ export function LandingNavbar() {
 
         <div className="flex items-center gap-2">
           <a
-            href="#contact"
+            href="/request-demo"
             className="hidden h-10 items-center rounded-md bg-[var(--color-primary)] px-4 text-sm font-bold text-white shadow-[0_16px_32px_rgba(255,92,122,0.18)] transition hover:-translate-y-0.5 hover:bg-[var(--color-primary-hover)] sm:inline-flex"
           >
             Book a Demo
@@ -81,7 +81,7 @@ export function LandingNavbar() {
       {mobileOpen && (
         <nav className="border-t border-[var(--color-secondary)]/12 bg-[var(--color-bg-light)] px-4 py-4 lg:hidden" aria-label="Mobile">
           <div className="mx-auto grid max-w-7xl gap-2">
-            <p className="px-3 pt-1 text-[11px] font-mono uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+            <p className="px-3 pt-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
               Products
             </p>
             {productItems.map((product) => (
@@ -105,7 +105,7 @@ export function LandingNavbar() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/request-demo"
               onClick={() => setMobileOpen(false)}
               className="mt-2 inline-flex h-11 items-center justify-center rounded-md bg-[var(--color-primary)] px-4 text-sm font-bold text-white"
             >

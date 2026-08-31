@@ -56,7 +56,7 @@ export function ProductSuiteSection() {
                 className={`grid items-center gap-10 lg:grid-cols-2 ${reversed ? "lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1" : ""}`}
               >
                 <div>
-                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--color-secondary)]">
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-secondary)]">
                     {product.name} · {product.fullName}
                   </p>
                   <h3 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
@@ -75,7 +75,7 @@ export function ProductSuiteSection() {
                   </ul>
                   <div className="mt-8">
                     <a
-                      href="#contact"
+                      href="/request-demo"
                       className="inline-flex h-11 items-center rounded-md bg-[var(--color-primary)] px-5 text-sm font-bold text-white transition hover:bg-[var(--color-primary-hover)]"
                     >
                       Book a Demo

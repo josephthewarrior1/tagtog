@@ -40,7 +40,7 @@ export function Accordion({ items, defaultOpenId, className }: AccordionProps) {
                 className="w-full flex items-center justify-between text-left py-2 group rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
               >
                 <div className="flex items-center gap-3 pr-4">
-                  <span className="shrink-0 font-mono text-xs font-normal text-[var(--color-text-muted)]">
+                  <span className="shrink-0 text-xs font-semibold text-[var(--color-text-muted)]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span className="text-base font-semibold text-[var(--color-text-primary)] transition-colors group-hover:text-[var(--color-primary)] sm:text-lg">

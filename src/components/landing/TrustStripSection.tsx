@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 const brandLogos = [
   {
     name: "Salesforce",
@@ -31,36 +33,67 @@ const brandLogos = [
     name: "Okta",
     src: "https://cdn.simpleicons.org/okta?viewbox=auto",
   },
+  {
+    name: "Asana",
+    src: "https://cdn.simpleicons.org/asana?viewbox=auto",
+  },
+  {
+    name: "Dropbox",
+    src: "https://cdn.simpleicons.org/dropbox?viewbox=auto",
+  },
+  {
+    name: "Airtable",
+    src: "https://cdn.simpleicons.org/airtable?viewbox=auto",
+  },
+  {
+    name: "Trello",
+    src: "https://cdn.simpleicons.org/trello?viewbox=auto",
+  },
+  {
+    name: "Miro",
+    src: "https://cdn.simpleicons.org/miro?viewbox=auto",
+  },
+  {
+    name: "ClickUp",
+    src: "https://cdn.simpleicons.org/clickup?viewbox=auto",
+  },
 ];
 
-export function TrustStripSection() {
+type TrustStripProps = {
+  className?: string;
+};
+
+export function TrustStripSection({ className }: TrustStripProps) {
   return (
-    <section className="overflow-hidden border-b border-[var(--color-secondary)]/10 bg-white py-8">
-      <div className="mx-auto mb-4 flex max-w-7xl flex-col gap-4 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-        <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-[var(--color-primary)]" />
-          <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
-            Built to connect with the tools event teams already rely on
-          </span>
-        </div>
+    <div
+      className={cn(
+        "trust-strip relative w-full overflow-hidden",
+        className,
+      )}
+    >
+      <div className="trust-strip__inner flex w-max items-center py-3">
+        {[0, 1].map((track) => (
+          <div
+            key={track}
+            aria-hidden={track === 1}
+            className="trust-strip__track flex shrink-0 items-center gap-8 pr-8 sm:gap-10 sm:pr-10"
+          >
+            {brandLogos.map((logo) => (
+              <div
+                key={`${track}-${logo.name}`}
+                className="group flex h-10 min-w-[88px] items-center justify-center sm:min-w-[104px]"
+              >
+                <img
+                  src={logo.src}
+                  alt={`${logo.name} logo`}
+                  loading="lazy"
+                  className="h-3.5 w-auto opacity-60 brightness-0 invert transition duration-200 group-hover:opacity-90 sm:h-4"
+                />
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
-      <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-        <div className="flex w-max items-center gap-5 animate-[marquee_24s_linear_infinite] py-2 hover:[animation-play-state:paused]">
-          {[...brandLogos, ...brandLogos, ...brandLogos].map((logo, index) => (
-            <div
-              key={`${logo.name}-${index}`}
-              className="group flex h-20 min-w-[180px] items-center justify-center rounded-[1.25rem] border border-[var(--color-secondary)]/10 bg-[var(--color-bg-light)] px-6 transition-all hover:border-[var(--color-primary)]/28 hover:bg-white"
-            >
-              <img
-                src={logo.src}
-                alt={`${logo.name} logo`}
-                loading="lazy"
-                className="h-7 w-auto opacity-55 grayscale transition duration-200 group-hover:opacity-100 group-hover:grayscale-0"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    </div>
   );
 }

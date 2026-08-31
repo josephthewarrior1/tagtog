@@ -21,7 +21,7 @@ export function StickyCta() {
   return (
     <div className="fixed bottom-5 right-5 z-40">
       <a
-        href="#contact"
+        href="/request-demo"
         className="inline-flex h-12 items-center gap-2 rounded-full bg-[var(--color-primary)] px-5 text-sm font-bold text-white shadow-[0_18px_36px_rgba(255,92,122,0.24)] transition hover:-translate-y-0.5 hover:bg-[var(--color-primary-hover)]"
       >
         Book a Demo

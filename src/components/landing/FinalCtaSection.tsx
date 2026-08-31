@@ -1,97 +1,54 @@
-"use client";
-
-import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export function FinalCtaSection() {
-  const [fullName, setFullName] = useState("");
-  const [workEmail, setWorkEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
   return (
-    <section id="contact" className="bg-[var(--color-bg-dark)] py-24 text-white">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:px-8">
-        <div>
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-primary)]">Final CTA</p>
-          <h2 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-6xl">
-            Everything in Flow. Everyone in Sync.
-          </h2>
-          <p className="mt-5 max-w-xl text-base leading-8 text-white/66">
-            Book a tailored walkthrough of TAGTOG and see how EMS, PMS, CRM, and IAM fit your event operation.
-          </p>
-        </div>
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 sm:p-8">
-          {!submitted ? (
-            <form
-              onSubmit={(event) => {
-                event.preventDefault();
-                if (!fullName || !workEmail || !company) {
-                  return;
-                }
-                setSubmitted(true);
+    <section id="contact" className="relative overflow-hidden bg-[#140f24] py-24 text-white">
+      {/* Background with floating device images */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#140f24] via-[#140f24]/80 to-transparent z-10" />
+        <div className="absolute inset-0 grid grid-cols-4 gap-4 p-8 transform -rotate-6 scale-110">
+          {[...Array(8)].map((_, i) => (
+            <div
+              key={i}
+              className="rounded-2xl bg-gradient-to-br from-[#2a1f3d] to-[#1a1228] border border-white/10 shadow-2xl"
+              style={{
+                height: '280px',
+                transform: `translateY(${(i % 2) * 40 - 20}px) rotate(${(i % 3) * 2 - 2}deg)`,
               }}
-              className="space-y-4"
             >
-              <div>
-                <label htmlFor="demo-name" className="mb-2 block text-xs font-semibold uppercase tracking-[0.12em] text-white/60">
-                  Name
-                </label>
-                <input
-                  id="demo-name"
-                  type="text"
-                  value={fullName}
-                  onChange={(event) => setFullName(event.target.value)}
-                  placeholder="Your full name"
-                  className="w-full rounded-xl border border-white/14 bg-[rgba(255,255,255,0.05)] px-4 py-3 text-sm text-white placeholder:text-white/34 focus:border-[var(--color-primary)] focus:outline-none"
-                  required
-                />
+              <div className="p-4">
+                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-pink-600" />
+                <div className="mt-4 space-y-2">
+                  <div className="h-3 w-3/4 rounded bg-white/20" />
+                  <div className="h-3 w-1/2 rounded bg-white/10" />
+                </div>
+                <div className="mt-6 grid grid-cols-2 gap-2">
+                  <div className="h-20 rounded-lg bg-white/5" />
+                  <div className="h-20 rounded-lg bg-white/5" />
+                </div>
               </div>
-              <div>
-                <label htmlFor="demo-email" className="mb-2 block text-xs font-semibold uppercase tracking-[0.12em] text-white/60">
-                  Work Email
-                </label>
-                <input
-                  id="demo-email"
-                  type="email"
-                  value={workEmail}
-                  onChange={(event) => setWorkEmail(event.target.value)}
-                  placeholder="name@company.com"
-                  className="w-full rounded-xl border border-white/14 bg-[rgba(255,255,255,0.05)] px-4 py-3 text-sm text-white placeholder:text-white/34 focus:border-[var(--color-primary)] focus:outline-none"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="demo-company" className="mb-2 block text-xs font-semibold uppercase tracking-[0.12em] text-white/60">
-                  Company
-                </label>
-                <input
-                  id="demo-company"
-                  type="text"
-                  value={company}
-                  onChange={(event) => setCompany(event.target.value)}
-                  placeholder="Your company"
-                  className="w-full rounded-xl border border-white/14 bg-[rgba(255,255,255,0.05)] px-4 py-3 text-sm text-white placeholder:text-white/34 focus:border-[var(--color-primary)] focus:outline-none"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[var(--color-primary)] px-6 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-[var(--color-primary-hover)]"
-              >
-                Book a Demo
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </form>
-          ) : (
-            <div className="space-y-3">
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-primary)]">Request received</p>
-              <h3 className="text-3xl font-extrabold">We&apos;ll follow up with a tailored walkthrough.</h3>
-              <p className="text-base leading-8 text-white/66">
-                Thanks, {fullName}. We&apos;ll reach out at {workEmail} with next steps for {company}.
-              </p>
             </div>
-          )}
+          ))}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-20 mx-auto flex max-w-7xl justify-end px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-2xl rounded-[2rem] bg-white p-10 text-[var(--color-text-primary)] shadow-[0_34px_72px_rgba(15,10,24,0.4)] sm:p-12">
+          <h2 className="text-3xl font-extrabold leading-[1.15] tracking-tight text-[var(--color-text-primary)] sm:text-4xl lg:text-5xl">
+            Let&apos;s make your next flagship event the best one yet
+          </h2>
+          <p className="mt-6 text-lg leading-relaxed text-[var(--color-text-muted)]">
+            Contact our team to see how TAGTOG can help you simplify and scale a successful conference program.
+          </p>
+          <div className="mt-8">
+            <Link
+              href="/request-demo"
+              className="inline-flex h-14 items-center justify-center rounded-md bg-[var(--color-primary)] px-7 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[var(--color-primary-hover)]"
+            >
+              Request a demo
+            </Link>
+          </div>
         </div>
       </div>
     </section>
