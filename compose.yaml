@@ -1,0 +1,20 @@
+name: tagtog
+
+services:
+  web:
+    image: tagtog:latest
+    platform: linux/amd64
+    build:
+      context: .
+    restart: unless-stopped
+    init: true
+    ports:
+      - "${TAGTOG_BIND_IP:-0.0.0.0}:${TAGTOG_PORT:-8787}:8787"
+    environment:
+      NODE_OPTIONS: --max-old-space-size=384
+    mem_limit: 512m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
