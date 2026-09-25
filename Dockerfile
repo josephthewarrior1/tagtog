@@ -7,8 +7,13 @@ COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
 
 FROM base AS builder
+ARG BACKEND_URL=http://backend:8788
+ARG ADMIN_URL=http://admin:8789
+ENV BACKEND_URL=$BACKEND_URL ADMIN_URL=$ADMIN_URL
 COPY --from=dependencies /app/node_modules ./node_modules
-COPY . .
+COPY package.json package-lock.json next.config.ts tsconfig.json postcss.config.mjs ./
+COPY src ./src
+COPY public ./public
 RUN npm run build
 
 FROM base AS runner

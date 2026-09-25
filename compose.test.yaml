@@ -1,0 +1,27 @@
+# Isolated, disposable integration database. Never uses the production .env or volume.
+name: tagtog-api-test
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: tagtog_test
+      POSTGRES_PASSWORD: tagtog_test_only
+      POSTGRES_DB: tagtog_test
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tagtog_test -d tagtog_test"]
+      interval: 2s
+      timeout: 5s
+      retries: 20
+    mem_limit: 256m
+  test:
+    build:
+      context: ../tagtog-be
+      target: test
+    environment:
+      TEST_DATABASE_URL: postgresql://tagtog_test:tagtog_test_only@db:5432/tagtog_test
+    depends_on:
+      db:
+        condition: service_healthy
+    init: true

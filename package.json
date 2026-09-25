@@ -6,7 +6,11 @@
     "dev": "next dev -p 8787",
     "build": "next build",
     "start": "next start -p 8787",
-    "lint": "eslint"
+    "lint": "eslint",
+    "dev:backend": "npm --prefix ../tagtog-be run dev",
+    "dev:admin": "npm --prefix ../tagtog-admin run dev",
+    "build:admin": "npm --prefix ../tagtog-admin run build",
+    "test:backend": "npm --prefix ../tagtog-be test"
   },
   "dependencies": {
     "clsx": "^2.1.1",

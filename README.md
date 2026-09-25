@@ -1,151 +1,258 @@
 # TagTog
 
-Website Next.js untuk TagTog. Saat ini hanya landing page dan halaman request demo;
-belum ada backend/database. Form request demo masih preview dan tidak mengirim atau
-menyimpan data.
+Website, form permintaan demo, backend, dan admin inbox. Pengunjung mengirim
+permintaan; admin menghubungi pemohon, mencatat follow-up, dan mengubah status.
+Belum ada kalender pemilihan slot atau pengiriman email otomatis.
 
-## Development
+## Tiga repository, empat service Docker
 
-```bash
-npm ci
-npm run dev
+Simpan tiga repository sebagai folder sejajar, bukan di dalam folder website:
+
+```text
+Folder Kim/ (laptop) atau /opt/ (server)
+  tagtog/        website dan Compose stack utama
+  tagtog-be/     backend dan PostgreSQL
+  tagtog-admin/  admin inbox
 ```
 
-Buka <http://localhost:8787>. Di PowerShell yang memblokir npm.ps1, gunakan npm.cmd.
+Repository backend: [tagtog-be](https://github.com/josephthewarrior1/tagtog-be).
+Repository admin: [tagtog-admin](https://github.com/josephthewarrior1/tagtog-admin).
 
-## Deploy Docker ke Ubuntu
+| Folder | Aplikasi | Container |
+| --- | --- | --- |
+| src/ dan public/ | Next.js, website dan form | web, port host 8787 |
+| ../tagtog-be/ | Express, login admin, koneksi PostgreSQL | backend, port internal 8788 |
+| ../tagtog-admin/ | React/Vite dengan Nginx | admin, port internal 8789 |
+| Volume tagtog_postgres | PostgreSQL 17, data demo dan akun admin | db, port internal 5432 |
+| tests/ | Pemeriksaan integrasi Docker | Dijalankan dari laptop |
 
-Satu service `web` di project Compose `tagtog`, dengan port host/container 8787.
-Container berjalan sebagai user non-root, restart otomatis, health check,
-batas RAM 512 MB, dan rotasi log. Tidak memerlukan PostgreSQL.
+Setiap aplikasi memiliki Dockerfile dan repository sendiri. compose.yaml di website
+membangun backend dari ../tagtog-be dan admin dari ../tagtog-admin, lalu menjalankan semuanya.
+Backend, admin, dan database tidak membuka port ke internet. Next.js meneruskan /api/* dan
+/admin/* melalui network Docker TagTog. Apache tetap meneruskan seluruh path domain
+ke 127.0.0.1:8787.
 
-Image Next.js standalone menyertakan public dan .next/static. Build memerlukan
-internet untuk base image, npm, dan Google Fonts; font disertakan di hasil build.
-Target image Linux AMD64 sesuai server. Build di laptop disarankan karena server
-2 GB sudah menjalankan beberapa aplikasi.
+## Deploy dari server
 
-### 1. Build dan upload dari laptop
+Pastikan perubahan website sudah di-commit/push. Pada setup pertama, clone dua
+repository baru ke folder sejajar dengan website (SSH GitHub server harus sudah terhubung):
 
-Jalankan Docker Desktop dalam mode Linux containers. Buka PowerShell di folder
-project, kemudian:
+```bash
+cd /opt
+git clone git@github.com:josephthewarrior1/tagtog-be.git
+git clone git@github.com:josephthewarrior1/tagtog-admin.git
+```
 
-```powershell
+Jika foldernya sudah ada, gunakan langkah update di bawah. Siapkan konfigurasi stack:
+
+```bash
+cd /opt/tagtog
+git pull origin main
+test -f .env || cp .env.example .env
+nano .env
+```
+
+Isi email admin, password admin, dan password database yang berbeda di .env. Contoh struktur:
+
+```dotenv
+ADMIN_EMAIL=alamat-email-admin-anda
+ADMIN_PASSWORD='password-unik-minimal-12-karakter'
+POSTGRES_DB=tagtog
+POSTGRES_USER=tagtog
+POSTGRES_PASSWORD='password-database-unik-anda'
+PUBLIC_ORIGIN=https://tagtog.id,https://www.tagtog.id
+COOKIE_SECURE=true
+TAGTOG_BIND_IP=127.0.0.1
+TAGTOG_PORT=8787
+```
+
+Gunakan password unik 12-256 karakter. Kutip password dengan tanda kutip tunggal
+agar karakter seperti $ tidak diinterpolasi Compose. Jangan commit .env.
+Tidak ada password bawaan. Akun dibuat pada inisialisasi pertama; perubahan nilai
+ADMIN_PASSWORD di .env tidak mengganti password akun yang sudah disimpan.
+POSTGRES_PASSWORD wajib diisi sebelum menjalankan Compose. Nilai POSTGRES_DB,
+POSTGRES_USER, dan POSTGRES_PASSWORD menginisialisasi database saat volume masih
+kosong; mengganti .env tidak mengganti kredensial database yang sudah ada.
+
+Build berurutan untuk mengurangi beban server 2 GB; lanjutkan jika perintah
+sebelumnya berhasil:
+
+```bash
+docker compose build backend
+docker compose build admin
 docker compose build web
-docker compose up -d --no-build web
+docker compose pull db
+docker compose up -d --no-build
+docker compose ps
+docker compose logs --tail=50 backend
+curl -f http://127.0.0.1:8787/api/health
+```
+
+Keempat service harus healthy. Batas RAM runtime: web 512 MB, backend 256 MB,
+admin 64 MB, PostgreSQL 256 MB. Batas ini tidak berlaku pada proses build.
+
+- Form: **https://tagtog.id/request-demo**
+- Admin: **https://tagtog.id/admin**
+
+Login memakai akun yang diisi pada .env. Kirim satu permintaan lewat form dan
+pastikan masuk inbox. Admin mendukung pencarian, filter status, pagination,
+detail pemohon, catatan internal, dan status Baru/Dihubungi/Terjadwal/Selesai/
+Diarsipkan. Terjadwal adalah catatan progres, bukan pemesanan slot kalender.
+
+## Domain dan HTTPS
+
+Konfigurasi Apache yang meneruskan seluruh path tagtog.id ke 127.0.0.1:8787 tetap
+dapat digunakan. Tidak perlu menambahkan port publik untuk API atau admin.
+
+Cloudflare: A @ ke 146.190.101.90 dan CNAME www ke tagtog.id, tetap Proxied.
+Pasang sertifikat HTTPS origin valid untuk tagtog.id dan www.tagtog.id, lalu pilih
+SSL/TLS Full (strict).
+
+API dan admin mengirim Cache-Control: no-store. Jika ada aturan Cloudflare
+Cache Everything khusus, kecualikan /api/* dan /admin*. PUBLIC_ORIGIN harus berisi
+origin domain yang dipakai, termasuk https://, tanpa path. Jika diubah, jalankan
+ulang Compose up agar environment backend diperbarui.
+
+## Penyimpanan dan backup
+
+Data PostgreSQL tersimpan dalam volume tagtog_postgres milik project Compose tagtog
+(nama default di Docker: tagtog_tagtog_postgres). Tabel dan indeks dibuat otomatis
+melalui migrasi saat backend mulai berjalan.
+Recreate/update container mempertahankan data. **Jangan gunakan docker compose down -v**:
+opsi -v menghapus volume, termasuk permintaan dan akun admin.
+
+Buat backup PostgreSQL saat aplikasi berjalan. Jalankan di terminal Ubuntu server:
+
+```bash
+cd /opt/tagtog
+mkdir -p backups
+backup_name="tagtog-$(date -u +%Y%m%dT%H%M%SZ).dump"
+docker compose exec -T db sh -c 'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" --format=custom --file=/tmp/tagtog-backup.dump'
+docker compose cp db:/tmp/tagtog-backup.dump "./backups/$backup_name"
+```
+
+Simpan salinan backup di lokasi lain yang terlindungi. File memuat data kontak,
+hash password, dan sesi. Petunjuk restore ada di
+[README backend](https://github.com/josephthewarrior1/tagtog-be#back-up-and-restore).
+Untuk stack utama ini, jalankan perintah Compose dari /opt/tagtog agar mengakses volume yang benar.
+Cara ini memakai [pg_dump](https://www.postgresql.org/docs/17/app-pgdump.html)
+dan menyalin file hasilnya, sehingga tidak melewatkan data biner melalui redirection PowerShell.
+
+Reset password melalui CLI interaktif, yang juga membatalkan sesi lama:
+
+```bash
+docker compose exec backend node src/reset-password.js
+```
+
+## Update berikutnya
+
+Buat backup sebelum upgrade. Pertahankan .env yang sudah diisi:
+
+```bash
+cd /opt/tagtog
+git pull --ff-only origin main
+git -C /opt/tagtog-be pull --ff-only origin main
+git -C /opt/tagtog-admin pull --ff-only origin main
+docker compose build backend
+docker compose build admin
+docker compose build web
+docker compose up -d --no-build
 docker compose ps
 ```
 
-Buka <http://localhost:8787> dan <http://localhost:8787/request-demo>.
-Jika port laptop dipakai, set `$env:TAGTOG_PORT = "18787"` sebelum perintah up,
-lalu buka port 18787.
+Compose ini hanya mengelola project TagTog. Database PMS/CRM tidak digunakan.
+PostgreSQL TagTog tidak memetakan port 5432 atau 4000 pada host.
 
-Ekspor image dan upload bersama konfigurasi Compose:
+## Docker Desktop untuk tes lokal
+
+Clone ketiga repository dengan susunan folder sejajar di atas. Dari folder tagtog,
+salin .env.example ke .env dan isi kredensial admin sendiri. Untuk HTTP di laptop:
+
+```dotenv
+PUBLIC_ORIGIN=http://localhost:8787,http://127.0.0.1:8787
+COOKIE_SECURE=false
+TAGTOG_BIND_IP=127.0.0.1
+TAGTOG_PORT=8787
+```
+
+```bash
+docker compose build
+docker compose up -d --no-build
+```
+
+Buka http://localhost:8787/admin dan http://localhost:8787/request-demo.
+Jika port diganti, sesuaikan PUBLIC_ORIGIN. COOKIE_SECURE=false hanya untuk tes
+HTTP loopback; domain produksi memakai HTTPS dan COOKIE_SECURE=true.
+
+Untuk build di laptop lalu kirim image ke server (tanpa build di server):
 
 ```powershell
 New-Item -ItemType Directory -Force artifacts | Out-Null
-docker image save --output artifacts/tagtog-image.tar tagtog:latest
-ssh root@146.190.101.90 "mkdir -p /opt/tagtog"
-scp artifacts/tagtog-image.tar compose.yaml root@146.190.101.90:/opt/tagtog/
+docker image save --output artifacts/tagtog-stack.tar tagtog:latest tagtog-backend:latest tagtog-admin:latest
+scp artifacts/tagtog-stack.tar compose.yaml root@146.190.101.90:/opt/tagtog/
 ```
 
-SSH/SCP meminta autentikasi jika belum memakai SSH key. Masukkan password langsung
-di terminal. Jika SSH memakai port khusus, tambahkan `-p PORT` ke ssh dan
-`-P PORT` ke scp. Server hanya perlu image dan compose.yaml, tanpa source/node_modules.
-
-### 2. Jalankan di server
-
-Di terminal Ubuntu:
+Di server dengan .env yang sudah diisi:
 
 ```bash
 cd /opt/tagtog
-docker compose version
-ss -lntp 'sport = :8787'
-free -h
-docker stats --no-stream
+docker image load --input tagtog-stack.tar
+docker compose pull db
+docker compose up -d --no-build --pull never
 ```
 
-Pastikan port kosong dan RAM cukup. Jika 8787 dipakai, pilih port kosong lain dan
-isi `TAGTOG_PORT=PORT_PILIHAN` di /opt/tagtog/.env sebelum menjalankan Compose.
-Jika Compose belum tersedia, ikuti [instalasi plugin Compose](https://docs.docker.com/compose/install/linux/)
-sesuai instalasi Docker yang sudah ada.
+## Development Node dengan database Docker (opsional)
+
+Gunakan Node.js 22. Di PowerShell gunakan npm.cmd jika npm.ps1 diblokir.
 
 ```bash
-docker image load --input tagtog-image.tar
-docker compose up -d --no-build --pull never web
-docker compose ps
-docker compose logs --tail=100 web
-curl -I http://127.0.0.1:8787
+npm ci
+npm --prefix ../tagtog-be ci
+npm --prefix ../tagtog-admin ci
 ```
 
-Tunggu status healthy. Sesuaikan port curl jika diubah. Perintah ini hanya mengelola
-project tagtog; image dijalankan tanpa build di server.
-
-Tes awal via <http://146.190.101.90:8787> jika firewall server/provider mengizinkan.
-Cek curl lokal dahulu sebelum mengubah aturan jaringan.
-Akses domain final menggunakan HTTPS melalui reverse proxy.
-
-### 3. Domain Exabytes ke Cloudflare
-
-Nama domain dan reverse proxy server perlu diketahui untuk menyelesaikan HTTPS.
-
-1. Tambahkan domain di Cloudflare dan periksa hasil import DNS. Pertahankan
-   record email/MX/TXT/subdomain yang sudah ada.
-2. Di Exabytes: Domains → My Domains → pilih domain → Manage → Name Servers.
-   Ganti dengan dua nameserver yang diberikan Cloudflare khusus untuk domain itu.
-   Jika DNSSEC sebelumnya aktif, ikuti panduan migrasi Cloudflare untuk menghapus
-   DS lama sebelum pindah nameserver. Tunggu status domain Active.
-3. Buat record A bernama `@` ke `146.190.101.90`, tanpa nomor port.
-   Tambahkan CNAME `www` ke domain utama jika dipakai. Pastikan tidak ada
-   record A/AAAA lama untuk nama yang sama yang mengarah ke server lain.
-4. Cek pengelola port 80/443 di server sebelum memasang reverse proxy:
-
-   ```bash
-   ss -lntp '( sport = :80 or sport = :443 )'
-   systemctl is-active nginx apache2 caddy
-   docker ps --format 'table {{.Names}}\t{{.Ports}}'
-   ```
-
-5. Tambahkan hostname TagTog ke reverse proxy yang sesuai. Proxy di host dapat
-   meneruskan ke `127.0.0.1:8787` (sesuaikan jika TAGTOG_PORT diubah).
-   Proxy di Docker memerlukan koneksi antar-container
-   yang sesuai; 127.0.0.1 di container menunjuk container itu sendiri.
-   Pasang sertifikat TLS valid untuk domain (dan www jika dipakai) di port 443.
-6. Setelah HTTPS origin bekerja, aktifkan proxy Cloudflare (awan oranye) dan
-   SSL/TLS **Full (strict)**. Sertifikat origin harus belum kedaluwarsa, cocok
-   dengan domain, dan diterbitkan CA publik atau Cloudflare Origin CA.
-   Origin CA memerlukan proxy Cloudflare untuk akses browser. Periksa hostname
-   lain di zona yang sama sebelum mengganti mode SSL/TLS global.
-   Setelah HTTPS teruji, aktifkan Always Use HTTPS.
-
-Alur: pengunjung → Cloudflare HTTPS → reverse proxy server :443 → TagTog :8787.
-Proxy standar Cloudflare tidak mendukung port pengunjung 8787.
-
-Jika reverse proxy berjalan di host, tambahkan `TAGTOG_BIND_IP=127.0.0.1` ke
-/opt/tagtog/.env lalu jalankan ulang perintah Compose up agar port aplikasi hanya
-tersedia secara lokal.
-
-Referensi resmi:
-[Exabytes nameserver](https://support.exabytes.co.id/id/support/solutions/articles/14000112984-mengganti-name-server-di-area-pelanggan),
-[setup Cloudflare](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/),
-[port proxy](https://developers.cloudflare.com/fundamentals/reference/network-ports/),
-[Full (strict)](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/full-strict/).
-
-### Update dan rollback
-
-Build/ekspor ulang di laptop, lalu upload tar baru. Simpan image lama sebelum load:
+Isi .env root seperti petunjuk Docker lokal, lalu jalankan database dengan port
+khusus development yang hanya terikat ke loopback:
 
 ```bash
-cd /opt/tagtog
-docker image tag tagtog:latest tagtog:previous
-docker image load --input tagtog-image.tar
-docker compose up -d --no-build --pull never web
-docker compose ps
-docker compose logs --tail=100 web
+docker compose -f compose.yaml -f compose.dev.yaml up -d db
 ```
 
-Untuk kembali ke image sebelumnya:
+Isi ../tagtog-be/.env berdasarkan ../tagtog-be/.env.example. Samakan PGPASSWORD dengan
+POSTGRES_PASSWORD pada .env root, dan gunakan PGPORT=15432. Buka tiga terminal:
 
 ```bash
-docker image tag tagtog:previous tagtog:latest
-docker compose up -d --no-build --pull never web
+npm run dev:backend
+npm run dev:admin
+npm run dev
 ```
+
+Akses utama http://localhost:8787/admin. Website meneruskan API8788/admin8789.
+Jika membuka Vite langsung di localhost:8789, tambahkan origin itu ke PUBLIC_ORIGIN.
+Alamat proxy Next dibaca saat build; Dockerfile mengatur BACKEND_URL=http://backend:8788
+dan ADMIN_URL=http://admin:8789. Development memakai alamat loopback.
+
+## Pemeriksaan
+
+```bash
+docker compose -f compose.test.yaml up --build --abort-on-container-exit --exit-code-from test
+docker compose -f compose.test.yaml down
+npm run build:admin
+npm run build
+```
+
+Tes backend memakai PostgreSQL sungguhan, database sementara tanpa port host,
+dan schema terpisah per tes. Compose tes tidak memakai volume produksi.
+Untuk npm run test:backend langsung, set TEST_DATABASE_URL ke database khusus tes;
+lihat ../tagtog-be/README.md.
+
+Untuk stack Docker lokal dengan data uji, isi environment SMOKE_BASE_URL,
+SMOKE_ADMIN_EMAIL, SMOKE_ADMIN_PASSWORD, lalu:
+
+```bash
+node tests/docker-smoke.mjs
+```
+
+Tes ini hanya mengizinkan localhost/127.0.0.1 dan membuat permintaan sintetis.
+Mencakup proxy, aset admin, validasi, idempotensi, login, proteksi data, CSRF,
+pencarian, perubahan status/catatan, dan logout.

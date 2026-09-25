@@ -1,4 +1,9 @@
 node_modules
+**/node_modules
+**/.env*
+**/dist
+**/*.sqlite*
+**/*.dump
 .next
 .git
 .agents
@@ -16,8 +21,10 @@ out
 build
 dist
 artifacts
+backups
 *.tar
 *.tar.gz
+tests
 README.md
 AGENTS.md
 CLAUDE.md

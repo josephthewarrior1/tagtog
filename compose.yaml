@@ -6,6 +6,14 @@ services:
     platform: linux/amd64
     build:
       context: .
+      args:
+        BACKEND_URL: http://backend:8788
+        ADMIN_URL: http://admin:8789
+    depends_on:
+      backend:
+        condition: service_healthy
+      admin:
+        condition: service_healthy
     restart: unless-stopped
     init: true
     ports:
@@ -18,3 +26,79 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+  backend:
+    image: tagtog-backend:latest
+    platform: linux/amd64
+    build:
+      context: ../tagtog-be
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    init: true
+    environment:
+      NODE_ENV: production
+      NODE_OPTIONS: --max-old-space-size=192
+      PORT: "8788"
+      PGHOST: db
+      PGPORT: "5432"
+      PGDATABASE: ${POSTGRES_DB:-tagtog}
+      PGUSER: ${POSTGRES_USER:-tagtog}
+      PGPASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:-https://tagtog.id,https://www.tagtog.id}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+    mem_limit: 256m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  admin:
+    image: tagtog-admin:latest
+    platform: linux/amd64
+    build:
+      context: ../tagtog-admin
+    environment:
+      BACKEND_URL: http://backend:8788
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    mem_limit: 64m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  db:
+    image: postgres:17-alpine
+    platform: linux/amd64
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-tagtog}
+      POSTGRES_USER: ${POSTGRES_USER:-tagtog}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    command: ["postgres", "-c", "shared_buffers=64MB", "-c", "max_connections=40"]
+    volumes:
+      - tagtog_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 10s
+      timeout: 5s
+      start_period: 20s
+      retries: 5
+    mem_limit: 256m
+    shm_size: 64m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  tagtog_postgres:
