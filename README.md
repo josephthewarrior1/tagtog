@@ -52,11 +52,9 @@ test -f .env || cp .env.example .env
 nano .env
 ```
 
-Isi email admin, password admin, dan password database yang berbeda di .env. Contoh struktur:
+Isi password database di .env. Email dan password akun dibuat melalui halaman daftar. Contoh struktur:
 
 ```dotenv
-ADMIN_EMAIL=alamat-email-admin-anda
-ADMIN_PASSWORD='password-unik-minimal-12-karakter'
 POSTGRES_DB=tagtog
 POSTGRES_USER=tagtog
 POSTGRES_PASSWORD='password-database-unik-anda'
@@ -66,10 +64,11 @@ TAGTOG_BIND_IP=127.0.0.1
 TAGTOG_PORT=8787
 ```
 
-Gunakan password unik 12-256 karakter. Kutip password dengan tanda kutip tunggal
+Gunakan password database yang unik. Kutip password dengan tanda kutip tunggal
 agar karakter seperti $ tidak diinterpolasi Compose. Jangan commit .env.
-Tidak ada password bawaan. Akun dibuat pada inisialisasi pertama; perubahan nilai
-ADMIN_PASSWORD di .env tidak mengganti password akun yang sudah disimpan.
+Tidak ada akun bawaan. Buka /admin/register untuk membuat akun dengan nama, email,
+dan kata sandi minimal 12 karakter. Setiap anggota tim bisa mendaftar sendiri;
+semua akun mendapat akses yang sama, tanpa role atau undangan.
 POSTGRES_PASSWORD wajib diisi sebelum menjalankan Compose. Nilai POSTGRES_DB,
 POSTGRES_USER, dan POSTGRES_PASSWORD menginisialisasi database saat volume masih
 kosong; mengganti .env tidak mengganti kredensial database yang sudah ada.
@@ -94,7 +93,7 @@ admin 64 MB, PostgreSQL 256 MB. Batas ini tidak berlaku pada proses build.
 - Form: **https://tagtog.id/request-demo**
 - Admin: **https://tagtog.id/admin**
 
-Login memakai akun yang diisi pada .env. Kirim satu permintaan lewat form dan
+Login memakai akun yang dibuat melalui halaman daftar. Kirim satu permintaan lewat form dan
 pastikan masuk inbox. Admin mendukung pencarian, filter status, pagination,
 detail pemohon, catatan internal, dan status Baru/Dihubungi/Terjadwal/Selesai/
 Diarsipkan. Terjadwal adalah catatan progres, bukan pemesanan slot kalender.
@@ -141,7 +140,7 @@ dan menyalin file hasilnya, sehingga tidak melewatkan data biner melalui redirec
 Reset password melalui CLI interaktif, yang juga membatalkan sesi lama:
 
 ```bash
-docker compose exec backend node src/reset-password.js
+docker compose exec -e ADMIN_EMAIL=email-akun-anda@example.com backend node src/reset-password.js
 ```
 
 ## Update berikutnya
@@ -166,7 +165,7 @@ PostgreSQL TagTog tidak memetakan port 5432 atau 4000 pada host.
 ## Docker Desktop untuk tes lokal
 
 Clone ketiga repository dengan susunan folder sejajar di atas. Dari folder tagtog,
-salin .env.example ke .env dan isi kredensial admin sendiri. Untuk HTTP di laptop:
+salin .env.example ke .env dan isi password database sendiri. Untuk HTTP di laptop:
 
 ```dotenv
 PUBLIC_ORIGIN=http://localhost:8787,http://127.0.0.1:8787
@@ -246,7 +245,8 @@ dan schema terpisah per tes. Compose tes tidak memakai volume produksi.
 Untuk npm run test:backend langsung, set TEST_DATABASE_URL ke database khusus tes;
 lihat ../tagtog-be/README.md.
 
-Untuk stack Docker lokal dengan data uji, isi environment SMOKE_BASE_URL,
+Untuk stack Docker lokal dengan data uji, daftarkan akun uji melalui /admin/register.
+Isi environment SMOKE_BASE_URL,
 SMOKE_ADMIN_EMAIL, SMOKE_ADMIN_PASSWORD, lalu:
 
 ```bash

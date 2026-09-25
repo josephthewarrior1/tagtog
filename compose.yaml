@@ -48,8 +48,6 @@ services:
       PGPASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
       PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:-https://tagtog.id,https://www.tagtog.id}
       COOKIE_SECURE: ${COOKIE_SECURE:-true}
-      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
     mem_limit: 256m
     logging:
       driver: json-file
