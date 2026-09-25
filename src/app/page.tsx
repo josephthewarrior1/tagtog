@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { ReferenceLanding } from "@/components/reference/ReferenceLanding";
 
 export const metadata: Metadata = {
-  title: "TAGTOG | One Platform. Every Event. Fully Connected.",
-  description: "Plan, manage, and deliver every moving part of your event — from registration to engagement, without losing control.",
+  title: "TAGTOG | Everything in Flow. Everyone in Sync.",
+  description: "TAGTOG is a connected event operations ecosystem. Bring teams, workflows, information, and access together through CRM, EMS, PMS, and IAM, from planning to reporting.",
 };
 
 export default function Home() {

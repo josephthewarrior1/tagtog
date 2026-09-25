@@ -1,32 +1,35 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import styles from "./ReferenceNav.module.css";
 
 const navigation = [
   {
-    label: "Product",
+    label: "Platform",
     links: [
       { label: "Overview", href: "/#platform" },
-      { label: "Features", href: "/#features" },
-      { label: "Integrations", href: "/#integrations" },
+      { label: "CLEAR framework", href: "/#clear" },
+      { label: "Benefits", href: "/#features" },
+      { label: "Grow your ecosystem", href: "/#integrations" },
     ],
   },
   {
     label: "Solutions",
     links: [
-      { label: "Corporate events", href: "/#solutions" },
-      { label: "Education", href: "/#solutions" },
-      { label: "Exhibitions & trade shows", href: "/#solutions" },
-      { label: "Nonprofit", href: "/#solutions" },
+      { label: "Event organizers", href: "/#solutions" },
+      { label: "In-house teams", href: "/#solutions" },
+      { label: "Hotels & venues", href: "/#solutions" },
+      { label: "Event partners", href: "/#solutions" },
       { label: "Government", href: "/#solutions" },
     ],
   },
   {
-    label: "Resources",
+    label: "Explore",
     links: [
-      { label: "Customer stories", href: "/#stories" },
+      { label: "Our story", href: "/#stories" },
+      { label: "Practical AI", href: "/#innovation" },
       { label: "The event lifecycle", href: "/#lifecycle" },
     ],
   },
@@ -94,7 +97,7 @@ export function ReferenceNav({ solid = false }: { solid?: boolean }) {
     >
       <nav className={styles.nav} aria-label="Main navigation">
         <Link className={styles.logo} href="/" aria-label="TAGTOG home" onClick={closeNavigation}>
-          TAGTOG
+          <Image src="/brand/tagtog-wordmark.svg" alt="tagtog" width={124} height={34} priority className={styles.logoImage} />
         </Link>
 
         <div className={styles.primary}>

@@ -1,0 +1,87 @@
+﻿.page { --ink: #101010; --muted: #65636f; --purple: #625095; min-height: 100vh; background: radial-gradient(ellipse at 70% 65%, #e9e4eb77, transparent 58%), #f6f4f1; color: var(--ink); overflow: clip; }
+.header { max-width: 1290px; width: calc(100% - 100px); margin: auto; height: 90px; display: flex; align-items: center; justify-content: space-between; gap: 36px; }
+.logo { font-size: 28px; font-weight: 800; letter-spacing: -1.7px; text-decoration: none; }
+.navigation { display: flex; align-items: center; gap: 38px; margin-left: 65px; font-size: 13px; }
+.navigation a { text-decoration: none; }
+.dropdown { position: relative; }
+.dropdown summary { display: flex; align-items: center; gap: 10px; cursor: pointer; list-style: none; }
+.dropdown summary::-webkit-details-marker { display: none; }
+.dropdown[open] summary svg { transform: rotate(180deg); }
+.dropdown > div { position: absolute; top: 30px; left: -16px; z-index: 10; width: 225px; padding: 8px; border: 1px solid #ded9e4; border-radius: 12px; background: #fff; box-shadow: 0 12px 30px #25202d12; }
+.dropdown a { display: block; padding: 12px 8px; border-radius: 6px; }
+.dropdown a:hover { background: #f1edf7; }
+.book, .submit { display: flex; align-items: center; justify-content: center; gap: 20px; background: linear-gradient(125deg, #1b1b1b, #090909); color: white; border: 1px solid #050505; border-radius: 10px; height: 48px; padding: 0 25px; font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer; transition: background .2s, transform .2s; }
+.book:hover, .submit:hover { background: #32283e; transform: translateY(-1px); }
+.layout { max-width: 1290px; width: calc(100% - 100px); margin: 20px auto 0; padding-bottom: 38px; display: grid; grid-template-columns: 1.08fr 1fr; gap: 62px; align-items: start; }
+.intro { min-width: 0; padding-top: 39px; }
+.eyebrow { display: flex; align-items: center; gap: 16px; color: var(--purple); font-size: 12px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; }
+.eyebrow::after { content: ''; width: 58px; height: 1px; background: #a699bd; }
+.intro h1 { margin: 19px 0 20px; font-size: clamp(60px, 5.75vw, 86px); line-height: .99; font-weight: 600; letter-spacing: -.065em; }
+.intro h1 em { color: var(--purple); font-weight: 700; }
+.description { max-width: 455px; color: var(--muted); font-size: 18px; line-height: 1.5; letter-spacing: -.025em; }
+.benefits { display: flex; gap: 24px; margin-top: 40px; position: relative; z-index: 2; }
+.benefits > div { display: flex; align-items: center; gap: 11px; }
+.benefits > div > span { display: grid; place-items: center; width: 42px; height: 42px; color: var(--purple); background: #f6f2f9; border: 2px solid white; border-radius: 10px; box-shadow: 0 3px 12px #57456c08; }
+.benefits svg { width: 21px; }
+.benefits p { font-size: 11px; line-height: 1.7; color: var(--muted); }
+.collage { position: relative; height: 415px; margin-top: 9px; }
+.connection, .eventPhoto, .badge { position: absolute; overflow: hidden; border-radius: 12px; box-shadow: 0 20px 35px #322b3420; }
+.connection { width: 53%; height: 220px; left: 4%; top: 80px; transform: rotate(-8deg); }
+.connection img, .eventPhoto img, .badgePhoto img { object-fit: cover; }
+.connection::after, .eventPhoto::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 35%, #000b); }
+.connection p, .eventPhoto p { position: absolute; bottom: 20px; left: 20px; z-index: 1; color: white; font-size: 14px; line-height: 1.4; }
+.eventPhoto { right: 0; top: 130px; width: 24%; height: 225px; transform: rotate(9deg); }
+.eventPhoto p { font-size: 20px; bottom: 18px; left: 16px; letter-spacing: -.04em; }
+.eventPhoto svg { display: inline; }
+.badge { z-index: 3; width: 43%; height: 350px; top: 39px; left: 42%; transform: rotate(18deg); border: 1px solid #ffffffb0; background: #ece9ed; }
+.badgeTop { position: relative; padding: 43px 20px 17px; height: 53%; background: linear-gradient(120deg, #fcfafb, #dcd8e0); }
+.badgeTop p { font-size: clamp(23px, 2.15vw, 32px); line-height: 1.04; letter-spacing: -.055em; font-weight: 600; }
+.badgeTop small { display: block; font-size: 6px; letter-spacing: .13em; margin-top: 17px; }
+.badgeArrow { position: absolute; right: 18px; top: 33px; }
+.slot { position: absolute; top: 13px; left: calc(50% - 19px); width: 38px; height: 9px; border-radius: 6px; background: #282431; box-shadow: inset 0 2px 3px #000; }
+.badgePhoto { height: 47%; position: relative; background: #4f3582; }
+.badgePhoto img { mix-blend-mode: luminosity; }
+.badgePhoto::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent, #19112588); }
+.badgePhoto > span { position: absolute; bottom: 12px; left: 0; right: 0; text-align: center; color: white; font-size: 12px; z-index: 1; }
+.lanyard { position: absolute; z-index: 1; width: 79px; height: 245px; right: 12%; top: -178px; border: 1px solid #51495f; border-radius: 45% 35% 30% 30%; background: repeating-linear-gradient(90deg, #17141f 0px, #262030 3px, #312a3c 4px); transform: rotate(25deg); box-shadow: inset 12px 0 13px #0008, 6px 4px 12px #0001; }
+.lanyard::before { content: ''; position: absolute; width: 29px; height: 170px; border-radius: 50%; left: 3px; top: 12px; background: #100d17; border-right: 1px solid #65596e; }
+.lanyard span { position: absolute; color: #e9e4ee; font-size: 18px; letter-spacing: .05em; transform: rotate(-90deg); top: 110px; left: -2px; }
+.clasp { position: absolute; z-index: 4; top: 22px; right: 26%; width: 25px; height: 52px; border: 5px solid #a5a5a8; background: transparent; border-radius: 9px 9px 13px 13px; transform: rotate(25deg); box-shadow: inset 1px 0 2px #fff, 1px 2px 2px #17121e; }
+.handwriting { position: absolute; right: 0; top: -27px; color: #8c858e; font: italic 23px/1.1 'Segoe Print', cursive; transform: rotate(-12deg); }
+.handwriting span { display: block; width: 45px; height: 1px; background: #9a929d; margin-top: 13px; }
+.trust { margin: 9px -12px 0; color: #777578; }
+.trust > p { font-size: 9px; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 22px; }
+.trust > div { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.trust strong { font-size: 18px; line-height: 1; letter-spacing: -.07em; }
+.trust small { display: block; font-size: 9px; letter-spacing: -.03em; }
+.trust .binus { font-size: 16px; }
+.trust .danamon { font-size: 13px; }
+.trust .yot { font-style: italic; font-size: 27px; }
+.trust > div > span { font-size: 8px; letter-spacing: .1em; }
+.formCard { position: relative; isolation: isolate; overflow: hidden; padding: 43px 40px 30px; border: 2px solid #fff9; border-top-color: white; border-radius: 38px; background: #ffffff8c; box-shadow: 0 25px 55px #342c3910; scroll-margin-top: 20px; }
+.formCard::before { content: ''; position: absolute; z-index: -1; top: -58px; right: -80px; height: 175px; width: 195px; border-radius: 50%; background: #eee6f680; }
+.formCard h2 { margin: 19px 0 13px; font-size: 34px; font-weight: 600; line-height: 1.08; letter-spacing: -.05em; }
+.formIntro { font-size: 14px; color: var(--muted); line-height: 1.5; }
+.form { display: grid; gap: 15px; margin-top: 26px; }
+.form label { display: flex; flex-direction: column; gap: 7px; font-size: 12px; color: var(--muted); }
+.nameRow { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.form input, .form select, .form textarea { width: 100%; min-width: 0; border: 1px solid #dcd7e3; border-radius: 10px; padding: 11px 13px; background: #ffffff8c; color: #35313e; font: inherit; font-size: 12px; outline: none; }
+.form input, .form select { height: 41px; }
+.form input::placeholder, .form textarea::placeholder { color: #a5a2b3; opacity: 1; }
+.form textarea { resize: vertical; min-height: 76px; }
+.form select { appearance: none; padding-right: 37px; }
+.form select:invalid { color: #a5a2b3; }
+.selectWrap { position: relative; }
+.selectWrap svg { position: absolute; top: 13px; right: 13px; pointer-events: none; }
+.form input:focus, .form select:focus, .form textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px #62509516; }
+.page a:focus-visible, .page button:focus-visible, .page summary:focus-visible { outline: 2px solid var(--purple); outline-offset: 5px; }
+.submit { width: 100%; height: 49px; margin-top: -2px; }
+.consent { margin-top: -6px; color: var(--muted); font-size: 10px; line-height: 1.8; }
+.success { min-height: 680px; display: flex; flex-direction: column; justify-content: center; gap: 24px; }
+.success > p:not(.eyebrow) { color: var(--muted); line-height: 1.7; }
+.success > a { font-size: 13px; text-align: center; }
+@media (min-width: 1450px) { .layout { margin-top: 22px; } }
+@media (max-width: 1150px) { .layout { gap: 35px; width: calc(100% - 64px); } .header { width: calc(100% - 64px); } .navigation { margin-left: 0; gap: 22px; } .formCard { padding: 34px 26px 26px; } .intro h1 { font-size: 65px; } .description { max-width: 360px; font-size: 16px; } .benefits { gap: 14px; } .benefits > div { gap: 7px; } .benefits p { font-size: 10px; } .lanyard { right: 7%; top: -130px; height: 195px; } .collage { height: 390px; } .badge { height: 310px; } .badgeTop { padding: 38px 15px 12px; } .badgeTop p { font-size: 25px; } .badgeTop small { font-size: 5px; } .handwriting { font-size: 19px; right: -10px; } .formCard h2 { font-size: 29px; } .trust > div { flex-wrap: wrap; gap: 20px; } }
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; max-width: 650px; margin-top: 0; } .intro { padding-top: 25px; } .intro h1 { font-size: 78px; } .description { max-width: 440px; } .benefits { gap: 27px; } .collage { height: 420px; } .lanyard { right: 13%; top: -150px; height: 215px; } .badge { height: 350px; } .badgeTop p { font-size: 32px; } .badgeTop small { font-size: 6px; } .trust { margin: 0 0 20px; } .formCard { padding: 38px; } .formCard h2 { font-size: 36px; } .form label, .form input, .form select, .form textarea { font-size: 14px; } .form input, .form select { height: 46px; } .selectWrap svg { top: 15px; } .form { gap: 18px; } .navigation { gap: 18px; font-size: 11px; } .book { font-size: 11px; padding: 0 16px; gap: 12px; } }
+@media (max-width: 600px) { .header { width: calc(100% - 40px); height: auto; min-height: 116px; flex-wrap: wrap; gap: 10px; padding: 17px 0; } .logo { font-size: 25px; } .book { margin-left: auto; height: 40px; } .navigation { order: 3; width: 100%; justify-content: space-between; gap: 10px; padding-top: 9px; } .dropdown > div { left: 0; width: 185px; } .dropdown:nth-child(3) > div { left: auto; right: 0; } .layout { width: calc(100% - 40px); gap: 24px; } .intro { padding-top: 22px; } .eyebrow { font-size: 10px; } .intro h1 { font-size: clamp(49px, 12.5vw, 72px); margin-top: 18px; } .description { max-width: 340px; font-size: 15px; } .benefits { gap: 12px; margin-top: 26px; justify-content: space-between; } .benefits > div { gap: 6px; } .benefits > div > span { width: 33px; height: 36px; } .benefits svg { width: 18px; } .benefits p { font-size: 9px; } .collage { margin-top: 100px; height: 315px; } .lanyard { top: -98px; height: 155px; width: 55px; right: 16%; } .lanyard::before { height: 115px; width: 18px; } .lanyard span { top: 72px; left: -11px; font-size: 14px; } .clasp { top: 23px; right: 29%; width: 21px; height: 37px; border-width: 4px; } .badge { width: 46%; height: 257px; left: 37%; } .badgeTop { padding: 32px 13px 10px; } .badgeTop p { font-size: 23px; } .badgeTop small { font-size: 4px; margin-top: 11px; } .badgeArrow { width: 21px; right: 10px; top: 22px; } .connection { height: 164px; top: 68px; left: 2%; } .connection p { font-size: 11px; left: 11px; bottom: 13px; } .eventPhoto { height: 170px; top: 107px; } .eventPhoto p { font-size: 15px; left: 10px; } .handwriting { font-size: 18px; right: 0; top: -11px; } .trust > p { font-size: 8px; margin-bottom: 18px; } .trust > div { gap: 18px; justify-content: flex-start; } .trust strong { font-size: 16px; } .formCard { padding: 28px 22px 24px; border-radius: 27px; } .formCard h2 { font-size: 29px; } .formIntro { font-size: 13px; } .nameRow { gap: 12px; } .form label { font-size: 11px; } .form input, .form select, .form textarea { font-size: 16px; padding-left: 10px; } .form textarea { min-height: 100px; } .consent { font-size: 10px; } .success { min-height: 450px; } }
+@media (prefers-reduced-motion: reduce) { .book, .submit { transition: none; } }

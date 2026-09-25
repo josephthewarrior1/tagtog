@@ -2,10 +2,10 @@
   container-type: inline-size;
   width: 100%;
   border-radius: 9px;
-  background: #f4f4f3;
-  box-shadow: 0 19px 45px rgb(0 0 0 / 22%);
+  background: #ffffff;
+  box-shadow: 0 19px 45px rgb(64 31 126 / 14%);
   overflow: hidden;
-  color: #141616;
+  color: #17112a;
   font-family: Arial, Helvetica, sans-serif;
   text-align: left;
 }
@@ -19,8 +19,8 @@
 
 .sidebar {
   padding: 3.6cqw 2.75cqw;
-  background: linear-gradient(110deg, #080b0b, #0c1010);
-  color: #a4a7a3;
+  background: linear-gradient(110deg, #51279a, #3c217d);
+  color: #d9c9f6;
 }
 
 .brand {
@@ -50,21 +50,21 @@
 .menuItem svg {
   width: 1.7cqw;
   height: 1.7cqw;
-  color: #919a93;
+  color: #cfb8f6;
 }
 
 .active {
-  color: #e3e5d6;
+  color: #ffffff;
 }
 
 .active svg {
-  color: #c5da86;
+  color: #ffffff;
 }
 
 .main {
   min-width: 0;
   padding: 7.6cqw 4.4cqw 0;
-  background: linear-gradient(125deg, #f8f8f7, #f0f0ef);
+  background: linear-gradient(125deg, #ffffff, #fcfaff);
 }
 
 .header {
@@ -84,7 +84,7 @@
 
 .subtitle {
   margin-top: 0.6cqw;
-  color: #848582;
+  color: #817890;
   font-size: 1.45cqw;
 }
 
@@ -117,11 +117,11 @@
 .metric {
   padding: 2.15cqw 2.65cqw 2.3cqw;
   border-radius: 1.3cqw;
-  background: #fff;
+  background: #f6f2ff;
 }
 
 .metricLabel {
-  color: #828581;
+  color: #817890;
   font-size: 1.45cqw;
   white-space: nowrap;
 }
@@ -136,13 +136,13 @@
 
 .metricComparison {
   margin-top: 1.2cqw;
-  color: #878985;
+  color: #817890;
   font-size: 1.13cqw;
   white-space: nowrap;
 }
 
 .metricComparison span {
-  color: #42ad78;
+  color: #6236d9;
   font-weight: 600;
 }
 
@@ -216,7 +216,7 @@
 }
 
 .chartTooltip span {
-  color: #777b77;
+  color: #817890;
   font-size: 1.3cqw;
 }
 

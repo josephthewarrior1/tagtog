@@ -95,8 +95,8 @@ export function EventDashboard() {
               >
                 <defs>
                   <linearGradient id="registration-chart-fill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#a8a8a8" stopOpacity="0.38" />
-                    <stop offset="100%" stopColor="#eeeeee" stopOpacity="0.12" />
+                    <stop offset="0%" stopColor="#9b74ed" stopOpacity="0.38" />
+                    <stop offset="100%" stopColor="#f5efff" stopOpacity="0.12" />
                   </linearGradient>
                 </defs>
                 {[18, 48, 78, 108, 138].map((y) => (
@@ -108,11 +108,11 @@ export function EventDashboard() {
                 />
                 <path
                   d="M0 135 C15 121 25 108 41 111 S60 126 77 117 S98 93 113 99 S129 116 145 100 S163 79 178 89 S196 92 207 79 S224 61 239 71 S260 94 276 75 S291 64 308 77 S327 94 344 84 S365 96 382 85 S410 63 427 73 S457 96 475 89 S501 69 520 64"
-                  stroke="#898d8d"
+                  stroke="#7943ee"
                   strokeWidth="1.4"
                 />
-                <path d="M293 38 V143" stroke="#c6c7c3" strokeWidth="1" />
-                <circle cx="293" cy="39" r="7" fill="#0c1010" />
+                <path d="M293 38 V143" stroke="#d9c7fc" strokeWidth="1" />
+                <circle cx="293" cy="39" r="7" fill="#6236d9" />
               </svg>
               <div className={styles.chartTooltip}>
                 <strong>1,248</strong>

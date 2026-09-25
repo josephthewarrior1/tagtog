@@ -1,226 +1,79 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { Inter, Roboto_Condensed } from "next/font/google";
+import { ReferenceNav } from "@/components/reference/ReferenceNav";
 import { useState } from "react";
-import { LandingNavbar } from "@/components/landing/LandingNavbar";
+import { ArrowRight, ArrowUpRight, CalendarDays, ChevronDown, UsersRound, Zap } from "lucide-react";
+import styles from "./request-demo.module.css";
 
-const eventTypeOptions = [
-  "Conference or summit",
-  "Internal event or town hall",
-  "Roadshow or multi-city program",
-  "Hybrid event",
-  "Other event format",
-];
+const eventTypes = ["Conference or summit", "Internal event or town hall", "Roadshow or multi-city program", "Hybrid event", "Other event format"];
+const inter = Inter({ subsets: ["latin"], variable: "--font-reference-sans", display: "swap" });
+const condensed = Roboto_Condensed({ subsets: ["latin"], variable: "--font-condensed", weight: ["600", "700", "800"], display: "swap" });
 
 export default function RequestDemoPage() {
   const [submitted, setSubmitted] = useState(false);
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [workEmail, setWorkEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [country, setCountry] = useState("");
-  const [eventType, setEventType] = useState("");
-
   return (
-    <main className="min-h-screen bg-[linear-gradient(135deg,#f7f1f5_0%,#fbf8f6_42%,#f2eef7_100%)] text-[var(--color-text-primary)]">
-      <LandingNavbar />
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
-          <section className="flex flex-col">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]">
-              Request a demo
-            </p>
-            <h1 className="mt-5 max-w-xl text-5xl font-extrabold leading-[1.02] tracking-tight text-[var(--color-text-primary)] sm:text-6xl">
-              See how TAGTOG can support the way your event teams already work.
-            </h1>
-            <p className="mt-6 max-w-xl text-xl leading-9 text-[var(--color-text-muted)]">
-              We&apos;ll tailor the conversation around your current workflows, operational handoffs, access needs, and the information your teams rely on to keep events moving.
-            </p>
+    <div className={styles.page}>
+      <div className={`${inter.variable} ${condensed.variable}`}><ReferenceNav solid /></div>
 
-            <div className="mt-auto rounded-[2rem] border border-[var(--color-secondary)]/10 bg-white/70 p-6 shadow-[0_24px_56px_rgba(32,30,46,0.08)] backdrop-blur-sm sm:p-8">
-              <div className="grid gap-4 sm:grid-cols-[1.2fr_1fr]">
-                <div className="overflow-hidden rounded-[1.5rem] bg-[linear-gradient(135deg,#1b1630,#32294f)] p-4">
-                  <img
-                    src="/images/product-ems.svg"
-                    alt="TAGTOG event operations interface preview"
-                    className="h-full w-full rounded-[1rem] bg-white object-cover"
-                  />
-                </div>
-                <div className="space-y-4">
-                  <div className="rounded-[1.25rem] bg-[rgba(255,92,122,0.08)] p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-primary)]">
-                      What to expect
-                    </p>
-                    <p className="mt-3 text-sm leading-7 text-[var(--color-text-primary)]">
-                      A focused walkthrough shaped around your event operation, not a generic product tour.
-                    </p>
-                  </div>
-                  <div className="rounded-[1.25rem] border border-[var(--color-secondary)]/10 bg-white p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-secondary)]">
-                      Conversation topics
-                    </p>
-                    <ul className="mt-3 space-y-2 text-sm leading-7 text-[var(--color-text-muted)]">
-                      <li>Workflow coordination across teams</li>
-                      <li>Master data and approvals</li>
-                      <li>Role-based access and audit visibility</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+      <main className={styles.layout}>
+        <section className={styles.intro} aria-labelledby="demo-title">
+          <p className={styles.eyebrow}>Request a demo</p>
+          <h1 id="demo-title">See TAGTOG<br />in <em>action.</em></h1>
+          <p className={styles.description}>Explore how CRM, EMS, PMS, and IAM can connect your teams, information, responsibilities, and access. Start with the operational need that matters most to you.</p>
+          <div className={styles.benefits}>
+            <div><span><CalendarDays /></span><p>Tailored<br />to your needs</p></div>
+            <div><span><UsersRound /></span><p>Real use cases<br />for your team</p></div>
+            <div><span><Zap /></span><p>Get expert<br />guidance</p></div>
+          </div>
+
+          <div className={styles.collage} aria-label="Event connections and a TAGTOG conference badge">
+            <div className={styles.lanyard}><span>TAGTOG</span></div>
+            <div className={styles.clasp} />
+            <div className={styles.connection}>
+              <Image src="/images/reference/networking-venue.jpg" alt="Attendees connecting at an event" fill sizes="(max-width: 700px) 55vw, 320px" />
+              <p>Meaningful<br />Connections</p>
             </div>
-          </section>
+            <div className={styles.eventPhoto}>
+              <Image src="/images/reference/hero-conference.jpg" alt="A live conference with an engaged audience" fill sizes="200px" />
+              <p>Everything<br />in Flow.<br />Everyone<br />in Sync. <ArrowUpRight size={20} /></p>
+            </div>
+            <div className={styles.badge}>
+              <div className={styles.badgeTop}><span className={styles.slot} /><ArrowUpRight className={styles.badgeArrow} size={30} /><p>Flow Smarter.<br />Grow<br />Further.</p><small>TECHNOLOGY. OPERATIONS. GROWTH.</small></div>
+              <div className={styles.badgePhoto}><Image src="/images/reference/hero-conference.jpg" alt="" fill sizes="300px" /><span>TAGTOG</span></div>
+            </div>
+            <span className={styles.handwriting}>More<br />Than<br />Events<span /></span>
+          </div>
+          <div className={styles.trust}>
+            <p>One connected event operations ecosystem</p>
+            <div><strong>CRM<small>Relationships</small></strong><strong>EMS<small>Event flow</small></strong><strong>PMS<small>Responsibilities</small></strong><strong>IAM<small>Identity &amp; access</small></strong></div>
+          </div>
+        </section>
 
-          <section className="flex h-full flex-col rounded-[2rem] bg-white p-8 shadow-[0_34px_72px_rgba(32,30,46,0.12)] sm:p-10">
-            {!submitted ? (
-              <div className="flex h-full flex-col">
-                <div>
-                <h2 className="text-3xl font-extrabold tracking-tight text-[var(--color-text-primary)]">
-                  Tell us a bit about your event operation.
-                </h2>
-                <p className="mt-3 text-base leading-8 text-[var(--color-text-muted)]">
-                  We&apos;ll use this to prepare a more relevant demo for your team.
-                </p>
-                </div>
-
-                <form
-                  onSubmit={(event) => {
-                    event.preventDefault();
-                    if (!firstName || !lastName || !workEmail || !company || !country || !eventType) {
-                      return;
-                    }
-                    setSubmitted(true);
-                  }}
-                  className="mt-8 flex-1 space-y-5"
-                >
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <div>
-                      <label htmlFor="first-name" className="mb-2 block text-sm font-medium text-[var(--color-text-muted)]">
-                        First Name
-                      </label>
-                      <input
-                        id="first-name"
-                        type="text"
-                        value={firstName}
-                        onChange={(event) => setFirstName(event.target.value)}
-                        className="w-full rounded-xl border border-[var(--color-secondary)]/18 px-4 py-3 text-base text-[var(--color-text-primary)] outline-none transition focus:border-[var(--color-primary)]"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="last-name" className="mb-2 block text-sm font-medium text-[var(--color-text-muted)]">
-                        Last Name
-                      </label>
-                      <input
-                        id="last-name"
-                        type="text"
-                        value={lastName}
-                        onChange={(event) => setLastName(event.target.value)}
-                        className="w-full rounded-xl border border-[var(--color-secondary)]/18 px-4 py-3 text-base text-[var(--color-text-primary)] outline-none transition focus:border-[var(--color-primary)]"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="work-email" className="mb-2 block text-sm font-medium text-[var(--color-text-muted)]">
-                      Work Email
-                    </label>
-                    <input
-                      id="work-email"
-                      type="email"
-                      value={workEmail}
-                      onChange={(event) => setWorkEmail(event.target.value)}
-                      className="w-full rounded-xl border border-[var(--color-secondary)]/18 px-4 py-3 text-base text-[var(--color-text-primary)] outline-none transition focus:border-[var(--color-primary)]"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="company" className="mb-2 block text-sm font-medium text-[var(--color-text-muted)]">
-                      Company
-                    </label>
-                    <input
-                      id="company"
-                      type="text"
-                      value={company}
-                      onChange={(event) => setCompany(event.target.value)}
-                      className="w-full rounded-xl border border-[var(--color-secondary)]/18 px-4 py-3 text-base text-[var(--color-text-primary)] outline-none transition focus:border-[var(--color-primary)]"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="country" className="mb-2 block text-sm font-medium text-[var(--color-text-muted)]">
-                      Country
-                    </label>
-                    <input
-                      id="country"
-                      type="text"
-                      value={country}
-                      onChange={(event) => setCountry(event.target.value)}
-                      className="w-full rounded-xl border border-[var(--color-secondary)]/18 px-4 py-3 text-base text-[var(--color-text-primary)] outline-none transition focus:border-[var(--color-primary)]"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="event-type" className="mb-2 block text-sm font-medium text-[var(--color-text-muted)]">
-                      What type of events do you run?
-                    </label>
-                    <select
-                      id="event-type"
-                      value={eventType}
-                      onChange={(event) => setEventType(event.target.value)}
-                      className="w-full rounded-xl border border-[var(--color-secondary)]/18 bg-white px-4 py-3 text-base text-[var(--color-text-primary)] outline-none transition focus:border-[var(--color-primary)]"
-                      required
-                    >
-                      <option value="">Select an option</option>
-                      {eventTypeOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="mt-auto pt-4">
-                  <p className="text-sm leading-7 text-[var(--color-text-muted)]">
-                    By submitting this form, you agree to occasional follow-up communication related to your request.
-                  </p>
-
-                  <button
-                    type="submit"
-                    className="mt-4 inline-flex h-12 min-w-[180px] items-center justify-center rounded-md bg-[var(--color-primary)] px-6 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[var(--color-primary-hover)]"
-                  >
-                    Request My Demo
-                  </button>
-                  </div>
-                </form>
+        <section className={styles.formCard} id="demo-form" aria-labelledby="form-title">
+          {!submitted ? <>
+            <p className={styles.eyebrow}>Let’s talk</p>
+            <h2 id="form-title">Tell us a bit about your<br className={styles.desktopBreak} /> event operation.</h2>
+            <p className={styles.formIntro}>We’ll use this information to prepare a relevant and personalized demo for your team.</p>
+            <form className={styles.form} onSubmit={(event) => { event.preventDefault(); setSubmitted(true); }}>
+              <div className={styles.nameRow}>
+                <label>First Name<input name="firstName" autoComplete="given-name" placeholder="John" value={firstName} onChange={(event) => setFirstName(event.target.value)} required /></label>
+                <label>Last Name<input name="lastName" autoComplete="family-name" placeholder="Doe" required /></label>
               </div>
-            ) : (
-              <div className="py-8">
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]">
-                  Request received
-                </p>
-                <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-[var(--color-text-primary)]">
-                  Thanks, {firstName}. We&apos;ll prepare a tailored walkthrough.
-                </h2>
-                <p className="mt-5 max-w-xl text-base leading-8 text-[var(--color-text-muted)]">
-                  We&apos;ll follow up at {workEmail} with next steps and shape the conversation around the workflows your team is managing at {company}.
-                </p>
-                <div className="mt-8">
-                  <Link
-                    href="/"
-                    className="inline-flex h-12 items-center justify-center rounded-md border border-[var(--color-secondary)]/18 px-6 text-base font-semibold text-[var(--color-text-primary)] transition hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
-                  >
-                    Return to homepage
-                  </Link>
-                </div>
-              </div>
-            )}
-          </section>
-        </div>
-      </div>
-    </main>
+              <label>Work Email<input name="email" type="email" autoComplete="email" placeholder="john@yourcompany.com" required /></label>
+              <label>Company<input name="company" autoComplete="organization" placeholder="Your company name" required /></label>
+              <label>Country<span className={styles.selectWrap}><select name="country" autoComplete="country-name" defaultValue="" required><option value="" disabled>Select a country</option>{["Indonesia", "Singapore", "Malaysia", "Thailand", "Philippines", "Vietnam", "Australia", "India", "United Kingdom", "United States", "Other"].map(country => <option key={country}>{country}</option>)}</select><ChevronDown size={16} /></span></label>
+              <label>What type of events do you run?<span className={styles.selectWrap}><select name="eventType" defaultValue="" required><option value="" disabled>Select an option</option>{eventTypes.map(type => <option key={type}>{type}</option>)}</select><ChevronDown size={16} /></span></label>
+              <label>Anything specific you’d like to discuss? (Optional)<textarea name="message" rows={3} placeholder="Share your goals, current challenges, or any specific use cases..." /></label>
+              <button className={styles.submit} type="submit">Request My Demo <ArrowRight size={18} /></button>
+              <p className={styles.consent}>By submitting this form, you agree to occasional follow-up communication related to your request.</p>
+            </form>
+          </> : <div className={styles.success} role="status"><p className={styles.eyebrow}>Thank you, {firstName}</p><h2 id="form-title">Your demo details are ready.</h2><p>This preview form isn’t connected to a booking service yet. Your request has not been sent.</p><button className={styles.submit} onClick={() => setSubmitted(false)}>Back to form <ArrowRight size={18} /></button><Link href="/">Return to homepage</Link></div>}
+        </section>
+      </main>
+    </div>
   );
 }
