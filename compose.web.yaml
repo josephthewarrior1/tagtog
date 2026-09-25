@@ -1,0 +1,32 @@
+# Website only, for servers already running tagtog-be and tagtog-admin separately.
+# Use this file by itself: docker compose -f compose.web.yaml up -d --build web
+name: tagtog
+
+services:
+  web:
+    image: tagtog:latest
+    platform: linux/amd64
+    build:
+      context: .
+      args:
+        BACKEND_URL: http://backend:8788
+        ADMIN_URL: http://admin:8789
+    restart: unless-stopped
+    init: true
+    ports:
+      - "${TAGTOG_BIND_IP:-127.0.0.1}:${TAGTOG_PORT:-8787}:8787"
+    environment:
+      NODE_OPTIONS: --max-old-space-size=384
+    networks:
+      - backend
+    mem_limit: 512m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  backend:
+    external: true
+    name: ${BACKEND_NETWORK:-tagtog-be_default}

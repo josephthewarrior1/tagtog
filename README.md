@@ -4,6 +4,39 @@ Website, form permintaan demo, backend, dan admin inbox. Pengunjung mengirim
 permintaan; admin menghubungi pemohon, mencatat follow-up, dan mengubah status.
 Belum ada kalender pemilihan slot atau pengiriman email otomatis.
 
+## Website dengan backend dan admin yang sudah berjalan terpisah
+
+Gunakan **compose.web.yaml** jika server sudah menjalankan `tagtog-be-backend-1`,
+`tagtog-be-db-1`, dan `tagtog-admin-admin-1` dari repository masing-masing.
+File ini hanya mengelola service `web` dalam project `tagtog`, sehingga memperbarui
+`tagtog-web-1` yang lama. Website bergabung ke network `tagtog-be_default` yang
+sudah ada dan meneruskan `/api/*` ke backend yang sama dengan admin. Tidak ada
+service database, volume database, atau password database dalam file ini.
+
+Pastikan backend dan admin sudah healthy dan keduanya memakai network tersebut.
+`BACKEND_NETWORK` dapat disesuaikan jika nama network berbeda. Port website tetap
+8787, secara default terikat ke loopback untuk Apache di host. Backend harus
+mengizinkan origin `https://tagtog.id`, `https://www.tagtog.id`, dan
+`https://admin.tagtog.id` melalui `PUBLIC_ORIGIN` di `/opt/tagtog-be/.env`.
+
+```bash
+cd /opt/tagtog
+git pull --ff-only origin main
+docker compose -f compose.web.yaml up -d --build web
+docker compose -f compose.web.yaml ps
+curl --fail-with-body https://tagtog.id/api/health
+```
+
+Hasil health harus JSON `{"status":"ok"}`. Refresh halaman `/request-demo`, kirim
+satu permintaan uji, lalu cari di inbox admin dengan filter Semua. Form versi awal
+sebelum integrasi API hanya menampilkan pesan sukses dan tidak menyimpan data;
+permintaan yang dikirim lewat versi itu perlu dikirim ulang.
+
+Untuk update website selanjutnya, selalu gunakan `-f compose.web.yaml` pada setup
+terpisah ini. Jangan gabungkan file ini dengan `compose.yaml` dan jangan menjalankan
+stack gabungan di bawah pada setup ini: stack gabungan memiliki database sendiri.
+Backend dan admin tetap dikelola melalui folder masing-masing.
+
 ## Tiga repository, empat service Docker
 
 Simpan tiga repository sebagai folder sejajar, bukan di dalam folder website:
