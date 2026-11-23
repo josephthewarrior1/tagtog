@@ -6,15 +6,27 @@
 }
 
 :root {
-  --color-primary: #ff5c7a;
-  --color-secondary: #5a5483;
-  --color-primary-hover: #e34f6b;
-  --color-secondary-hover: #4d486f;
-  --color-bg-light: #faf7f4;
-  --color-bg-dark: #201e2e;
-  --color-text-primary: #15141b;
-  --color-text-muted: #6d6b7a;
-  --color-text-on-dark: #f7f2f5;
+  --brand-blue: #0049ff;
+  --brand-blue-strong: #0037c0;
+  --brand-sky: #55b7fe;
+  --brand-navy: #081b3a;
+  --brand-deep: #102f65;
+  --brand-ink: #101828;
+  --brand-slate: #4b5f7e;
+  --brand-paper: #f6faff;
+  --brand-tint: #eaf4ff;
+  --brand-line: #cdddf2;
+  --brand-on-dark: #e1efff;
+
+  --color-primary: var(--brand-blue);
+  --color-secondary: var(--brand-deep);
+  --color-primary-hover: var(--brand-blue-strong);
+  --color-secondary-hover: var(--brand-navy);
+  --color-bg-light: var(--brand-paper);
+  --color-bg-dark: var(--brand-navy);
+  --color-text-primary: var(--brand-ink);
+  --color-text-muted: var(--brand-slate);
+  --color-text-on-dark: var(--brand-on-dark);
 }
 
 @keyframes marquee {
@@ -79,7 +91,7 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f4f1f7;
+  background: var(--brand-tint);
 }
 
 ::-webkit-scrollbar-thumb {

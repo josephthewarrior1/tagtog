@@ -2,12 +2,13 @@
   position: relative;
   z-index: 20;
   width: 100%;
-  color: #201638;
+  color: var(--brand-ink);
+  background: color-mix(in srgb, var(--brand-paper) 96%, transparent);
   font-family: var(--font-reference-sans), Arial, sans-serif;
 }
 
 .solid {
-  background: #faf8ff;
+  background: var(--brand-paper);
 }
 
 .nav {
@@ -22,13 +23,6 @@
 .logo {
   flex: 0 0 auto;
   margin-right: min(7.8vw, 125px);
-  color: #5128b5;
-  font-family: var(--font-condensed), Impact, sans-serif;
-  font-size: min(1.95vw, 31px);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.035em;
-  text-decoration: none;
 }
 
 .primary,
@@ -43,14 +37,6 @@
   gap: min(2.3vw, 37px);
 }
 
-.actions .navLink {
-  color: #faf8ff;
-}
-
-.solid .actions .navLink {
-  color: #201638;
-}
-
 .navLink {
   display: inline-flex;
   align-items: center;
@@ -58,7 +44,7 @@
   padding: min(0.9vw, 14px) 0;
   border: 0;
   background: transparent;
-  color: #201638;
+  color: var(--brand-ink);
   font: inherit;
   font-size: min(0.834vw, 13.35px);
   font-weight: 500;
@@ -79,7 +65,7 @@
 }
 
 .navLink:hover {
-  color: #6236d9;
+  color: var(--brand-blue);
 }
 
 .demo {
@@ -90,8 +76,8 @@
   width: min(10.35vw, 166px);
   height: min(2.64vw, 42px);
   border-radius: 999px;
-  background: #faf8ff;
-  color: #6236d9;
+  background: var(--brand-blue);
+  color: #fff;
   font-size: min(0.835vw, 13.36px);
   font-weight: 600;
   line-height: 1;
@@ -105,7 +91,7 @@
 }
 
 .demo:hover {
-  background: #ece3fc;
+  background: var(--brand-blue-strong);
 }
 
 .dropdown {
@@ -118,7 +104,7 @@
   left: -15px;
   min-width: 210px;
   padding: 8px;
-  border: 1px solid #e4d8f5;
+  border: 1px solid var(--brand-line);
   border-radius: 8px;
   background: #fff;
   box-shadow: 0 12px 30px #0006;
@@ -128,7 +114,7 @@
   display: block;
   padding: 11px 10px;
   border-radius: 4px;
-  color: #201638;
+  color: var(--brand-ink);
   font-size: 13px;
   line-height: 1.4;
   white-space: nowrap;
@@ -136,8 +122,8 @@
 }
 
 .dropdownPanel a:hover {
-  background: #f1eafb;
-  color: #6236d9;
+  background: var(--brand-tint);
+  color: var(--brand-blue);
 }
 
 .accountPanel {
@@ -147,7 +133,7 @@
 
 .header a:focus-visible,
 .header button:focus-visible {
-  outline: 2px solid #6236d9;
+  outline: 2px solid var(--brand-blue);
   outline-offset: 5px;
 }
 
@@ -164,7 +150,6 @@
 
   .logo {
     margin-right: 0;
-    font-size: 28px;
   }
 
   .primary,
@@ -179,10 +164,10 @@
     height: 44px;
     margin-left: auto;
     padding: 0;
-    border: 1px solid #d8c9ef;
+    border: 1px solid var(--brand-line);
     border-radius: 5px;
-    background: #faf8ffdd;
-    color: #201638;
+    background: var(--brand-paper);
+    color: var(--brand-ink);
     cursor: pointer;
   }
 
@@ -197,15 +182,15 @@
     max-height: calc(100dvh - 72px);
     overflow-y: auto;
     padding: 24px 20px 28px;
-    border-top: 1px solid #e5daf5;
-    border-bottom: 1px solid #e5daf5;
-    background: #faf8ff;
+    border-top: 1px solid var(--brand-line);
+    border-bottom: 1px solid var(--brand-line);
+    background: var(--brand-paper);
     box-shadow: 0 14px 30px #0008;
   }
 
   .mobileGroup p {
     margin: 0 0 9px;
-    color: #6236d9;
+    color: var(--brand-blue);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.08em;
@@ -216,7 +201,7 @@
   .mobileBottom > a:not(.demo) {
     display: block;
     padding: 8px 0;
-    color: #201638;
+    color: var(--brand-ink);
     font-size: 14px;
     line-height: 1.4;
     text-decoration: none;
@@ -229,7 +214,7 @@
     flex-wrap: wrap;
     gap: 20px;
     padding-top: 16px;
-    border-top: 1px solid #e5daf5;
+    border-top: 1px solid var(--brand-line);
   }
 
   .demo {
@@ -250,6 +235,6 @@
 
 .logoImage {
   display: block;
-  width: clamp(105px, 7.75vw, 124px);
+  width: clamp(128px, 11vw, 168px);
   height: auto;
 }
