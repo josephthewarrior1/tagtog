@@ -97,7 +97,7 @@ export function ReferenceNav({ solid = false }: { solid?: boolean }) {
     >
       <nav className={styles.nav} aria-label="Main navigation">
         <Link className={styles.logo} href="/" aria-label="TAGTOG home" onClick={closeNavigation}>
-          <Image src="/brand/tagtog-wordmark.svg" alt="tagtog" width={124} height={34} priority className={styles.logoImage} />
+          <Image src="/brand/tagtog-wordmark.svg?v=2" alt="" width={828} height={180} unoptimized loading="eager" className={styles.logoImage} />
         </Link>
 
         <div className={styles.primary}>

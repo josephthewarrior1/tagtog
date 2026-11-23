@@ -101,7 +101,7 @@ export function ReferenceLanding() {
               <a className={`${styles.button} ${styles.buttonDark}`} href="#clear">See the CLEAR framework<ArrowRight aria-hidden="true" /></a>
             </div>
             <div className={styles.ecosystem}>
-              <div className={styles.ecosystemHeading}><span>TAGTOG</span><p>Shared information. Connected responsibilities. Controlled access.</p></div>
+              <div className={styles.ecosystemHeading}><Image src="/brand/tagtog-wordmark.svg?v=2" alt="TAGTOG" width={828} height={180} unoptimized /><p>Shared information. Connected responsibilities. Controlled access.</p></div>
               <div className={styles.productGrid}>{products.map(({ name, title, description, icon: Icon }) => <article className={styles.product} key={name}><Icon aria-hidden="true" /><strong>{name}</strong><h3>{title}</h3><p>{description}</p></article>)}</div>
               <p className={styles.foundation}>One shared foundation, shaped by firsthand event-industry experience.</p>
             </div>
@@ -120,7 +120,7 @@ export function ReferenceLanding() {
               { name: "AFTER", subtitle: "Report & grow", description: "Retain changes, approvals, and operational knowledge for the work that comes next.", image: "after-analytics.jpg" },
             ].map(stage => <a href="#features" className={styles.stageCard} key={stage.name}>
               <Image src={`/images/reference/${stage.image}`} alt="" fill sizes="(max-width: 700px) 100vw, 33vw" />
-              <div className={styles.stageShade} /><div className={styles.stageCopy}><h3>{stage.name}</h3><span className={styles.greenRule} /><h4>{stage.subtitle}</h4><p>{stage.description}</p></div><span className={styles.circleArrow}><ArrowRight aria-hidden="true" /></span>
+              <div className={styles.stageShade} /><div className={styles.stageCopy}><h3>{stage.name}</h3><span className={styles.stageRule} /><h4>{stage.subtitle}</h4><p>{stage.description}</p></div><span className={styles.circleArrow}><ArrowRight aria-hidden="true" /></span>
             </a>)}
           </div>
         </section>
@@ -166,7 +166,7 @@ export function ReferenceLanding() {
         <section className={styles.finalCta} aria-labelledby="cta-title"><div className={`${styles.container} ${styles.ctaGrid}`}><div><Eyebrow>Everything in Flow. Everyone in Sync.</Eyebrow><h2 id="cta-title">Bring everything<br />into flow.</h2></div><div className={styles.ctaAside}><p>Tell us how your team works today. Start with the capabilities that make your next step clearer.</p><div className={styles.ctaButtons}><DemoButton /><a href="#platform" className={`${styles.button} ${styles.buttonOutline}`}>Explore TAGTOG</a></div></div></div></section>
       </main>
 
-      <footer id="footer" className={styles.footer}><div className={styles.container}><div className={styles.footerMain}><div className={styles.footerBrand}><a href="#hero-title" className={styles.wordmark}>TAGTOG</a><p>Technology. Operations. Growth.</p><p>Connected Event Operations Ecosystem</p></div>{footerGroups.map(group => <div className={styles.footerGroup} key={group.title}><h3>{group.title}</h3>{group.links.map(([label, href]) => <Link href={href} key={label}>{label}</Link>)}</div>)}<p className={styles.footerMotto}>Flow<br />Smarter.<br />Grow<br />Further.</p></div><div className={styles.footerBottom}><p>© {new Date().getFullYear()} TAGTOG. All rights reserved.</p><Link href="/request-demo">Contact TAGTOG</Link></div></div></footer>
+      <footer id="footer" className={styles.footer}><div className={styles.container}><div className={styles.footerMain}><div className={styles.footerBrand}><a href="#hero-title" className={styles.wordmark} aria-label="TAGTOG, back to top"><Image src="/brand/tagtog-wordmark.svg?v=2" alt="" width={828} height={180} unoptimized /></a><p>Technology. Operations. Growth.</p><p>Connected Event Operations Ecosystem</p></div>{footerGroups.map(group => <div className={styles.footerGroup} key={group.title}><h3>{group.title}</h3>{group.links.map(([label, href]) => <Link href={href} key={label}>{label}</Link>)}</div>)}<p className={styles.footerMotto}>Flow<br />Smarter.<br />Grow<br />Further.</p></div><div className={styles.footerBottom}><p>© {new Date().getFullYear()} TAGTOG. All rights reserved.</p><Link href="/request-demo">Contact TAGTOG</Link></div></div></footer>
     </div>
   );
 }
